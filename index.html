@@ -5,36 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal AI Assistant</title>
     <style>
-        /* CSS जस का तस रहेगा */
+        /* CSS में कोई बदलाव नहीं */
         body{margin:0;font-family:'Segoe UI','Roboto','Helvetica Neue',sans-serif;background-color:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh}.phone-container{width:375px;height:812px;background-color:#000;border-radius:40px;border:1px solid #333;box-shadow:0 10px 30px rgba(0,0,0,.5);position:relative;overflow:hidden;display:flex;flex-direction:column;color:#fff}.header{padding:40px 30px 10px;display:flex;flex-direction:column;align-items:center}.ai-buddy-chip{background-color:#cfff5e;color:#000;padding:8px 16px;border-radius:20px;font-weight:700;font-size:14px}.online-status{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:#aaa}.online-dot{width:8px;height:8px;background-color:#cfff5e;border-radius:50%}.main-content{flex-grow:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 20px;text-align:center}.ai-orb{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#d1e2ff,#b3c8ff,#a4aaff,#c7a4ff,#433d8b,#000 70%);box-shadow:0 0 40px rgba(199,164,255,.4);animation:pulse 5s infinite ease-in-out;margin-bottom:40px}@keyframes pulse{0%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}100%{transform:scale(1);opacity:.9}}.transcribed-text{min-height:60px;font-size:22px;line-height:1.4;color:#e0e0e0}.controls{padding:20px 30px 40px;display:flex;justify-content:space-around;align-items:center}.mic-button{width:80px;height:80px;background-color:#cfff5e;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;border:none;position:relative;transition:transform .2s ease}.mic-button:active{transform:scale(.95)}.mic-button.listening::before{content:'';position:absolute;top:-15px;left:-15px;right:-15px;bottom:-15px;border:2px solid #cfff5e;border-radius:50%;animation:listening-wave 1.5s infinite ease-out;opacity:0}@keyframes listening-wave{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.2);opacity:0}}.mic-icon{width:36px;height:36px}.side-button{width:44px;height:44px;background-color:#2c2c2e;border:none;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer}.side-button svg{width:20px;height:20px}
     </style>
 </head>
 <body>
+    <!-- HTML में कोई बदलाव नहीं -->
     <div class="phone-container">
-        <!-- HTML का ऊपरी हिस्सा जस का तस रहेगा -->
-        <div class="header">
-            <div class="ai-buddy-chip">AI Buddy</div>
-            <div class="online-status">
-                <div class="online-dot"></div>
-                <span>Online</span>
-            </div>
-        </div>
-        <div class="main-content">
-            <div class="ai-orb"></div>
-            <p class="transcribed-text" id="transcribedText">
-                Tap the mic and give a command
-            </p>
-        </div>
+        <div class="header"><div class="ai-buddy-chip">AI Buddy</div><div class="online-status"><div class="online-dot"></div><span>Online</span></div></div>
+        <div class="main-content"><div class="ai-orb"></div><p class="transcribed-text" id="transcribedText">Tap the mic and give a command</p></div>
         <div class="controls">
-             <button class="side-button" aria-label="Keyboard">
-                 <svg fill="white" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"></path></svg>
-             </button>
-            <button class="mic-button" id="micButton" aria-label="Start voice command">
-                <svg class="mic-icon" fill="black" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"></path></svg>
-            </button>
-            <button class="side-button" aria-label="Close">
-                 <svg fill="white" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
-            </button>
+             <button class="side-button" aria-label="Keyboard"><svg fill="white" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"></path></svg></button>
+            <button class="mic-button" id="micButton" aria-label="Start voice command"><svg class="mic-icon" fill="black" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.49 6-3.31 6-6.72h-1.7z"></path></svg></button>
+            <button class="side-button" aria-label="Close"><svg fill="white" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></button>
         </div>
     </div>
 
@@ -43,31 +26,33 @@
         const transcribedText = document.getElementById('transcribedText');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-        // --- लड़के की आवाज़ सेट करने के लिए ---
-        let maleVoice;
-        
-        // आवाज़ों को लोड करने का इंतज़ार करें
-        window.speechSynthesis.onvoiceschanged = () => {
-            const voices = window.speechSynthesis.getVoices();
-            // एक अंग्रेजी पुरुष आवाज़ ढूंढें
-            maleVoice = voices.find(voice => voice.lang.includes('en') && voice.name.includes('Male'));
-            // अगर 'Male' नाम से न मिले तो दूसरी डिफ़ॉल्ट आवाज़ें ट्राई करें
-            if (!maleVoice) {
-                maleVoice = voices.find(voice => voice.name === 'Google US English' || voice.name === 'David' || voice.name === 'Zira');
-            }
-        };
+        let voices = [];
+
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            console.log("Voices loaded:", voices); // डीबगिंग के लिए: देखें कौनसी आवाज़ें उपलब्ध हैं
+        }
+
+        // आवाज़ों को लोड करने के लिए इवेंट
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices(); // पहली बार में लोड करने का प्रयास करें
 
         function speak(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1;
-            utterance.pitch = 1;
-
-            // अगर लड़के की आवाज़ मिल गयी है, तो उसका इस्तेमाल करें
+            
+            // पुरुष आवाज़ खोजने का बेहतर तरीका
+            let maleVoice = voices.find(voice => voice.lang.startsWith('en') && (voice.name.includes('Male') || voice.name.includes('David') || voice.name.includes('Google US English')));
+            
             if (maleVoice) {
+                console.log("Using voice:", maleVoice.name); // डीबगिंग के लिए
                 utterance.voice = maleVoice;
+            } else {
+                console.log("Male voice not found, using default."); // डीबगिंग के लिए
             }
             
+            utterance.rate = 1;
+            utterance.pitch = 1;
             window.speechSynthesis.speak(utterance);
         }
 
@@ -84,9 +69,8 @@
 
             recognition.onresult = (event) => {
                 const transcript = event.results[event.resultIndex][0].transcript.toLowerCase().trim();
+                console.log("Heard:", transcript); // डीबगिंग: AI ने क्या सुना, उसे कंसोल में देखें
                 let reply = '';
-
-                // --- सभी नए कमांड्स यहाँ हैं ---
 
                 if (transcript.includes('hello buddy')) {
                     reply = 'Hello sir, how can I help you?';
@@ -94,14 +78,12 @@
                 // ओपन कमांड्स
                 else if (transcript.includes('open calculator')) {
                     reply = 'Opening calculator...';
-                    // वेब आधारित कैलकुलेटर खोलें [1, 2]
                     window.open('https://www.google.com/search?q=calculator', '_blank');
                 } else if (transcript.includes('open telegram')) {
                     reply = 'Opening Telegram...';
                     window.open('https://web.telegram.org', '_blank');
                 } else if (transcript.includes('open free fire')) {
-                    reply = 'Opening Free Fire page on Google Play...';
-                    // फ्री फायर का गूगल प्ले स्टोर पेज खोलें
+                    reply = 'Opening Free Fire page...';
                     window.open('https://play.google.com/store/apps/details?id=com.dts.freefireth', '_blank');
                 } else if (transcript.includes('open facebook')) {
                     reply = 'Opening Facebook...';
@@ -110,38 +92,33 @@
                     reply = 'Opening WhatsApp...';
                     window.open('https://web.whatsapp.com', '_blank');
                 } 
-                // तारीख और समय कमांड्स
-                else if (transcript.includes('date')) {
-                    const date = new Date().toLocaleDateString('en-GB');
-                    reply = `Today's date is ${date}`;
-                } else if (transcript.includes('time')) {
-                    const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                // तारीख, समय, दिन, महीना के कमांड्स
+                else if (transcript.includes('time')) {
+                    const now = new Date();
+                    const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
                     reply = `The current time is ${time}`;
-                } else if (transcript.includes('day')) {
-                    const day = new Date().toLocaleString('en-US', { weekday: 'long' });
-                    reply = `Today is ${day}`;
-                } else if (transcript.includes('month')) {
-                    const month = new Date().toLocaleString('en-US', { month: 'long' });
-                    reply = `It's ${month}`;
+                } else if (transcript.includes('date') || transcript.includes('day') || transcript.includes('month')) {
+                    const now = new Date();
+                    const day = now.toLocaleString('en-US', { weekday: 'long' });
+                    const date = now.toLocaleDateString('en-GB');
+                    const month = now.toLocaleString('en-US', { month: 'long' });
+                    reply = `Today is ${day}, ${date}, in the month of ${month}.`;
                 }
                 // अगर कोई कमांड नहीं मिला
                 else {
-                    transcribedText.textContent = `I heard: "${transcript}". I don't have a command for that.`;
-                    return;
+                    reply = `Sorry, I didn't understand the command: "${transcript}". Please try again.`;
                 }
                 
                 transcribedText.textContent = reply;
                 speak(reply);
             };
 
-            recognition.onend = () => {
-                micButton.classList.remove('listening');
-            };
+            recognition.onend = () => micButton.classList.remove('listening');
             
             recognition.onerror = (event) => {
                 let errorMessage = `Error: ${event.error}`;
                 if (event.error === 'not-allowed') {
-                    errorMessage = 'Microphone access was denied. Please use HTTPS and allow permission.';
+                    errorMessage = 'Microphone access denied. Please use HTTPS and allow permission.';
                 } else if (event.error === 'no-speech') {
                     errorMessage = 'No speech detected. Try again.';
                 }
@@ -158,4 +135,4 @@
         document.querySelector('[aria-label="Close"]').addEventListener('click', () => alert('Close button clicked!'));
     </script>
 </body>
-    </html>
+                                                               </html>
