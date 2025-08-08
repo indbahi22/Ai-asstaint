@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="phone-container">
+        <!-- HTML का ऊपरी हिस्सा जस का तस रहेगा -->
         <div class="header">
             <div class="ai-buddy-chip">AI Buddy</div>
             <div class="online-status">
@@ -38,86 +39,111 @@
     </div>
 
     <script>
-        // JavaScript - ऐप की फंक्शनैलिटी
         const micButton = document.getElementById('micButton');
         const transcribedText = document.getElementById('transcribedText');
-
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        // --- लड़के की आवाज़ सेट करने के लिए ---
+        let maleVoice;
         
+        // आवाज़ों को लोड करने का इंतज़ार करें
+        window.speechSynthesis.onvoiceschanged = () => {
+            const voices = window.speechSynthesis.getVoices();
+            // एक अंग्रेजी पुरुष आवाज़ ढूंढें
+            maleVoice = voices.find(voice => voice.lang.includes('en') && voice.name.includes('Male'));
+            // अगर 'Male' नाम से न मिले तो दूसरी डिफ़ॉल्ट आवाज़ें ट्राई करें
+            if (!maleVoice) {
+                maleVoice = voices.find(voice => voice.name === 'Google US English' || voice.name === 'David' || voice.name === 'Zira');
+            }
+        };
+
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+
+            // अगर लड़के की आवाज़ मिल गयी है, तो उसका इस्तेमाल करें
+            if (maleVoice) {
+                utterance.voice = maleVoice;
+            }
+            
+            window.speechSynthesis.speak(utterance);
+        }
+
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
-            
             recognition.continuous = false;
             recognition.lang = 'en-US';
 
-            // --- नया बदलाव 1: बोलने वाला फंक्शन ---
-            function speak(text) {
-                // पहले से चल रही किसी भी स्पीच को रद्द करें
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US'; // प्रतिक्रिया की भाषा
-                utterance.rate = 1; // बोलने की गति (0.1 से 10 तक)
-                utterance.pitch = 1; // आवाज़ का उतार-चढ़ाव (0 से 2 तक)
-                
-                // ब्राउज़र को टेक्स्ट बोलने का आदेश दें
-                window.speechSynthesis.speak(utterance);
-            }
-            
             micButton.addEventListener('click', () => {
                 transcribedText.textContent = 'Listening...';
                 micButton.classList.add('listening');
-                try {
-                    recognition.start();
-                } catch(error) {
-                    console.error("Error starting recognition:", error);
-                    micButton.classList.remove('listening');
-                    transcribedText.textContent = 'Recognition could not be started.';
-                }
+                recognition.start();
             });
 
-            // --- नया बदलाव 2: कमांड के जवाब में speak() को कॉल करना ---
             recognition.onresult = (event) => {
-                const current = event.resultIndex;
-                const transcript = event.results[current][0].transcript.toLowerCase().trim();
-                
-                let reply = ''; // जवाब के लिए एक वेरिएबल
+                const transcript = event.results[event.resultIndex][0].transcript.toLowerCase().trim();
+                let reply = '';
+
+                // --- सभी नए कमांड्स यहाँ हैं ---
 
                 if (transcript.includes('hello buddy')) {
                     reply = 'Hello sir, how can I help you?';
-                } else if (transcript.includes('open youtube')) {
-                    reply = 'Opening YouTube...';
-                    window.open('https://www.youtube.com', '_blank');
-                } else if (transcript.includes('open instagram')) {
-                    reply = 'Opening Instagram...';
-                    window.open('https://www.instagram.com', '_blank');
-                } else {
-                    // अगर कोई कमांड मैच नहीं होता, तो सिर्फ बोला गया टेक्स्ट दिखाएं
-                    // और कोई जवाब न बोलें
-                    transcribedText.textContent = `You said: "${transcript}"`;
-                    return; // फंक्शन को यहीं रोक दें
+                } 
+                // ओपन कमांड्स
+                else if (transcript.includes('open calculator')) {
+                    reply = 'Opening calculator...';
+                    // वेब आधारित कैलकुलेटर खोलें [1, 2]
+                    window.open('https://www.google.com/search?q=calculator', '_blank');
+                } else if (transcript.includes('open telegram')) {
+                    reply = 'Opening Telegram...';
+                    window.open('https://web.telegram.org', '_blank');
+                } else if (transcript.includes('open free fire')) {
+                    reply = 'Opening Free Fire page on Google Play...';
+                    // फ्री फायर का गूगल प्ले स्टोर पेज खोलें
+                    window.open('https://play.google.com/store/apps/details?id=com.dts.freefireth', '_blank');
+                } else if (transcript.includes('open facebook')) {
+                    reply = 'Opening Facebook...';
+                    window.open('https://facebook.com', '_blank');
+                } else if (transcript.includes('open whatsapp')) {
+                    reply = 'Opening WhatsApp...';
+                    window.open('https://web.whatsapp.com', '_blank');
+                } 
+                // तारीख और समय कमांड्स
+                else if (transcript.includes('date')) {
+                    const date = new Date().toLocaleDateString('en-GB');
+                    reply = `Today's date is ${date}`;
+                } else if (transcript.includes('time')) {
+                    const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+                    reply = `The current time is ${time}`;
+                } else if (transcript.includes('day')) {
+                    const day = new Date().toLocaleString('en-US', { weekday: 'long' });
+                    reply = `Today is ${day}`;
+                } else if (transcript.includes('month')) {
+                    const month = new Date().toLocaleString('en-US', { month: 'long' });
+                    reply = `It's ${month}`;
+                }
+                // अगर कोई कमांड नहीं मिला
+                else {
+                    transcribedText.textContent = `I heard: "${transcript}". I don't have a command for that.`;
+                    return;
                 }
                 
-                // स्क्रीन पर जवाब दिखाएं
                 transcribedText.textContent = reply;
-                // AI को जवाब बोलने के लिए कहें
                 speak(reply);
             };
 
             recognition.onend = () => {
                 micButton.classList.remove('listening');
-                if (transcribedText.textContent === 'Listening...') {
-                    transcribedText.textContent = 'Tap the mic and give a command';
-                }
             };
             
             recognition.onerror = (event) => {
-                console.error("Speech recognition error:", event.error, event.message);
                 let errorMessage = `Error: ${event.error}`;
                 if (event.error === 'not-allowed') {
-                    errorMessage = 'Microphone access was denied.';
+                    errorMessage = 'Microphone access was denied. Please use HTTPS and allow permission.';
                 } else if (event.error === 'no-speech') {
-                    errorMessage = 'No speech was detected. Please try again.';
+                    errorMessage = 'No speech detected. Try again.';
                 }
                 transcribedText.textContent = errorMessage;
                 micButton.classList.remove('listening');
@@ -128,14 +154,8 @@
             micButton.disabled = true;
         }
         
-        document.querySelector('[aria-label="Keyboard"]').addEventListener('click', () => {
-            alert('Keyboard button clicked!');
-        });
-
-        document.querySelector('[aria-label="Close"]').addEventListener('click', () => {
-            alert('Close button clicked!');
-        });
-        
+        document.querySelector('[aria-label="Keyboard"]').addEventListener('click', () => alert('Keyboard button clicked!'));
+        document.querySelector('[aria-label="Close"]').addEventListener('click', () => alert('Close button clicked!'));
     </script>
 </body>
-</html>
+    </html>
