@@ -22,43 +22,34 @@
     </div>
 
     <script>
+        // --- जावास्क्रिप्ट ---
         const micButton = document.getElementById('micButton');
         const transcribedText = document.getElementById('transcribedText');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
         let voices = [];
 
-        function loadVoices() {
-            voices = window.speechSynthesis.getVoices();
-            console.log("Voices loaded:", voices); // डीबगिंग के लिए: देखें कौनसी आवाज़ें उपलब्ध हैं
-        }
-
-        // आवाज़ों को लोड करने के लिए इवेंट
+        function loadVoices() { voices = window.speechSynthesis.getVoices(); }
         window.speechSynthesis.onvoiceschanged = loadVoices;
-        loadVoices(); // पहली बार में लोड करने का प्रयास करें
+        loadVoices();
 
         function speak(text) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            
-            // पुरुष आवाज़ खोजने का बेहतर तरीका
             let maleVoice = voices.find(voice => voice.lang.startsWith('en') && (voice.name.includes('Male') || voice.name.includes('David') || voice.name.includes('Google US English')));
-            
-            if (maleVoice) {
-                console.log("Using voice:", maleVoice.name); // डीबगिंग के लिए
-                utterance.voice = maleVoice;
-            } else {
-                console.log("Male voice not found, using default."); // डीबगिंग के लिए
-            }
-            
-            utterance.rate = 1;
-            utterance.pitch = 1;
+            if (maleVoice) utterance.voice = maleVoice;
             window.speechSynthesis.speak(utterance);
+        }
+
+        /**
+         * सिर्फ ऐप खोलने की कोशिश करता है।
+         * @param {string} appUrl - ऐप की URL स्कीम (जैसे 'whatsapp://')
+         */
+        function tryToOpenApp(appUrl) {
+            window.location.href = appUrl;
         }
 
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
-            recognition.continuous = false;
             recognition.lang = 'en-US';
 
             micButton.addEventListener('click', () => {
@@ -69,44 +60,33 @@
 
             recognition.onresult = (event) => {
                 const transcript = event.results[event.resultIndex][0].transcript.toLowerCase().trim();
-                console.log("Heard:", transcript); // डीबगिंग: AI ने क्या सुना, उसे कंसोल में देखें
                 let reply = '';
 
-                if (transcript.includes('hello buddy')) {
-                    reply = 'Hello sir, how can I help you?';
-                } 
-                // ओपन कमांड्स
-                else if (transcript.includes('open calculator')) {
-                    reply = 'Opening calculator...';
-                    window.open('https://www.google.com/search?q=calculator', '_blank');
+                if (transcript.includes('open youtube')) {
+                    reply = 'Opening YouTube...';
+                    tryToOpenApp('youtube://');
                 } else if (transcript.includes('open telegram')) {
                     reply = 'Opening Telegram...';
-                    window.open('https://web.telegram.org', '_blank');
-                } else if (transcript.includes('open free fire')) {
-                    reply = 'Opening Free Fire page...';
-                    window.open('https://play.google.com/store/apps/details?id=com.dts.freefireth', '_blank');
-                } else if (transcript.includes('open facebook')) {
-                    reply = 'Opening Facebook...';
-                    window.open('https://facebook.com', '_blank');
+                    tryToOpenApp('tg://');
                 } else if (transcript.includes('open whatsapp')) {
                     reply = 'Opening WhatsApp...';
-                    window.open('https://web.whatsapp.com', '_blank');
-                } 
-                // तारीख, समय, दिन, महीना के कमांड्स
-                else if (transcript.includes('time')) {
-                    const now = new Date();
-                    const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-                    reply = `The current time is ${time}`;
-                } else if (transcript.includes('date') || transcript.includes('day') || transcript.includes('month')) {
-                    const now = new Date();
-                    const day = now.toLocaleString('en-US', { weekday: 'long' });
-                    const date = now.toLocaleDateString('en-GB');
-                    const month = now.toLocaleString('en-US', { month: 'long' });
-                    reply = `Today is ${day}, ${date}, in the month of ${month}.`;
+                    tryToOpenApp('whatsapp://');
+                } else if (transcript.includes('open facebook')) {
+                    reply = 'Opening Facebook...';
+                    tryToOpenApp('fb://');
+                } else if (transcript.includes('open instagram')) {
+                    reply = 'Opening Instagram...';
+                    tryToOpenApp('instagram://');
+                } else if (transcript.includes('open play store')) {
+                    reply = 'Opening Play Store...';
+                    tryToOpenApp('market://');
                 }
-                // अगर कोई कमांड नहीं मिला
+                // --- जिन ऐप्स को नहीं खोला जा सकता ---
+                else if (transcript.includes('open camera') || transcript.includes('open gallery') || transcript.includes('open settings') || transcript.includes('open calculator') || transcript.includes('open free fire')) {
+                    reply = `For security reasons, I cannot open the ${transcript.replace('open ','')} app directly from the browser.`;
+                }
                 else {
-                    reply = `Sorry, I didn't understand the command: "${transcript}". Please try again.`;
+                    reply = `Sorry, I don't have a command for that.`;
                 }
                 
                 transcribedText.textContent = reply;
@@ -114,25 +94,15 @@
             };
 
             recognition.onend = () => micButton.classList.remove('listening');
-            
             recognition.onerror = (event) => {
-                let errorMessage = `Error: ${event.error}`;
-                if (event.error === 'not-allowed') {
-                    errorMessage = 'Microphone access denied. Please use HTTPS and allow permission.';
-                } else if (event.error === 'no-speech') {
-                    errorMessage = 'No speech detected. Try again.';
-                }
-                transcribedText.textContent = errorMessage;
+                transcribedText.textContent = `Error: ${event.error}`;
                 micButton.classList.remove('listening');
             };
 
         } else {
-            transcribedText.textContent = "Sorry, your browser doesn't support Speech Recognition.";
+            transcribedText.textContent = "Sorry, your browser doesn't support this feature.";
             micButton.disabled = true;
         }
-        
-        document.querySelector('[aria-label="Keyboard"]').addEventListener('click', () => alert('Keyboard button clicked!'));
-        document.querySelector('[aria-label="Close"]').addEventListener('click', () => alert('Close button clicked!'));
     </script>
 </body>
-                                                               </html>
+                                                                                                     </html>
