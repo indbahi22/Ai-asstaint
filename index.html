@@ -1,164 +1,12 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal AI Assistant</title>
     <style>
-        /* CSS Styles - ऐप का डिज़ाइन */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background-color: #1a1a1a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .phone-container {
-            width: 375px;
-            height: 812px;
-            background-color: #000000;
-            border-radius: 40px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            color: white;
-        }
-        
-        .header {
-            padding: 40px 30px 10px 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .ai-buddy-chip {
-            background-color: #cfff5e;
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .online-status {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 10px;
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #cfff5e;
-            border-radius: 50%;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        .ai-orb {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #d1e2ff, #b3c8ff, #a4aaff, #c7a4ff, #433d8b, #000000 70%);
-            box-shadow: 0 0 40px rgba(199, 164, 255, 0.4);
-            animation: pulse 5s infinite ease-in-out;
-            margin-bottom: 40px;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
-
-        .transcribed-text {
-            min-height: 60px;
-            font-size: 22px;
-            line-height: 1.4;
-            color: #e0e0e0;
-        }
-
-        .controls {
-            padding: 20px 30px 40px 30px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        
-        .mic-button {
-            width: 80px;
-            height: 80px;
-            background-color: #cfff5e;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border: none;
-            position: relative;
-            transition: transform 0.2s ease;
-        }
-        
-        .mic-button:active {
-            transform: scale(0.95);
-        }
-
-        .mic-button.listening::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
-            border: 2px solid #cfff5e;
-            border-radius: 50%;
-            animation: listening-wave 1.5s infinite ease-out;
-            opacity: 0;
-        }
-        
-        @keyframes listening-wave {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.2); opacity: 0; }
-        }
-        
-        .mic-icon {
-            width: 36px;
-            height: 36px;
-        }
-
-        .side-button {
-            width: 44px;
-            height: 44px;
-            background-color: #2c2c2e;
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .side-button svg {
-             width: 20px;
-             height: 20px;
-        }
+        /* CSS जस का तस रहेगा */
+        body{margin:0;font-family:'Segoe UI','Roboto','Helvetica Neue',sans-serif;background-color:#1a1a1a;display:flex;justify-content:center;align-items:center;min-height:100vh}.phone-container{width:375px;height:812px;background-color:#000;border-radius:40px;border:1px solid #333;box-shadow:0 10px 30px rgba(0,0,0,.5);position:relative;overflow:hidden;display:flex;flex-direction:column;color:#fff}.header{padding:40px 30px 10px;display:flex;flex-direction:column;align-items:center}.ai-buddy-chip{background-color:#cfff5e;color:#000;padding:8px 16px;border-radius:20px;font-weight:700;font-size:14px}.online-status{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:#aaa}.online-dot{width:8px;height:8px;background-color:#cfff5e;border-radius:50%}.main-content{flex-grow:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 20px;text-align:center}.ai-orb{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#d1e2ff,#b3c8ff,#a4aaff,#c7a4ff,#433d8b,#000 70%);box-shadow:0 0 40px rgba(199,164,255,.4);animation:pulse 5s infinite ease-in-out;margin-bottom:40px}@keyframes pulse{0%{transform:scale(1);opacity:.9}50%{transform:scale(1.05);opacity:1}100%{transform:scale(1);opacity:.9}}.transcribed-text{min-height:60px;font-size:22px;line-height:1.4;color:#e0e0e0}.controls{padding:20px 30px 40px;display:flex;justify-content:space-around;align-items:center}.mic-button{width:80px;height:80px;background-color:#cfff5e;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;border:none;position:relative;transition:transform .2s ease}.mic-button:active{transform:scale(.95)}.mic-button.listening::before{content:'';position:absolute;top:-15px;left:-15px;right:-15px;bottom:-15px;border:2px solid #cfff5e;border-radius:50%;animation:listening-wave 1.5s infinite ease-out;opacity:0}@keyframes listening-wave{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.2);opacity:0}}.mic-icon{width:36px;height:36px}.side-button{width:44px;height:44px;background-color:#2c2c2e;border:none;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer}.side-button svg{width:20px;height:20px}
     </style>
 </head>
 <body>
@@ -202,6 +50,20 @@
             recognition.continuous = false;
             recognition.lang = 'en-US';
 
+            // --- नया बदलाव 1: बोलने वाला फंक्शन ---
+            function speak(text) {
+                // पहले से चल रही किसी भी स्पीच को रद्द करें
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US'; // प्रतिक्रिया की भाषा
+                utterance.rate = 1; // बोलने की गति (0.1 से 10 तक)
+                utterance.pitch = 1; // आवाज़ का उतार-चढ़ाव (0 से 2 तक)
+                
+                // ब्राउज़र को टेक्स्ट बोलने का आदेश दें
+                window.speechSynthesis.speak(utterance);
+            }
+            
             micButton.addEventListener('click', () => {
                 transcribedText.textContent = 'Listening...';
                 micButton.classList.add('listening');
@@ -214,21 +76,32 @@
                 }
             });
 
+            // --- नया बदलाव 2: कमांड के जवाब में speak() को कॉल करना ---
             recognition.onresult = (event) => {
                 const current = event.resultIndex;
                 const transcript = event.results[current][0].transcript.toLowerCase().trim();
                 
+                let reply = ''; // जवाब के लिए एक वेरिएबल
+
                 if (transcript.includes('hello buddy')) {
-                    transcribedText.textContent = 'Hello sir, how can I help you?';
+                    reply = 'Hello sir, how can I help you?';
                 } else if (transcript.includes('open youtube')) {
-                    transcribedText.textContent = 'Opening YouTube...';
+                    reply = 'Opening YouTube...';
                     window.open('https://www.youtube.com', '_blank');
                 } else if (transcript.includes('open instagram')) {
-                    transcribedText.textContent = 'Opening Instagram...';
+                    reply = 'Opening Instagram...';
                     window.open('https://www.instagram.com', '_blank');
                 } else {
-                    transcribedText.textContent = transcript;
+                    // अगर कोई कमांड मैच नहीं होता, तो सिर्फ बोला गया टेक्स्ट दिखाएं
+                    // और कोई जवाब न बोलें
+                    transcribedText.textContent = `You said: "${transcript}"`;
+                    return; // फंक्शन को यहीं रोक दें
                 }
+                
+                // स्क्रीन पर जवाब दिखाएं
+                transcribedText.textContent = reply;
+                // AI को जवाब बोलने के लिए कहें
+                speak(reply);
             };
 
             recognition.onend = () => {
@@ -238,21 +111,14 @@
                 }
             };
             
-            // **बेहतर त्रुटि प्रबंधन**
             recognition.onerror = (event) => {
                 console.error("Speech recognition error:", event.error, event.message);
-                
                 let errorMessage = `Error: ${event.error}`;
                 if (event.error === 'not-allowed') {
-                    errorMessage = 'Microphone access was denied. Please allow microphone access in your browser settings and use an HTTPS connection.';
+                    errorMessage = 'Microphone access was denied.';
                 } else if (event.error === 'no-speech') {
                     errorMessage = 'No speech was detected. Please try again.';
-                } else if (event.error === 'network') {
-                    errorMessage = 'Network error. Please check your internet connection.';
-                } else if (event.error === 'audio-capture') {
-                    errorMessage = 'Microphone not found. Ensure it is connected and working.';
                 }
-
                 transcribedText.textContent = errorMessage;
                 micButton.classList.remove('listening');
             };
@@ -272,4 +138,4 @@
         
     </script>
 </body>
-  </html>
+</html>
