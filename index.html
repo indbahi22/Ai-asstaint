@@ -62,24 +62,24 @@
                 const transcript = event.results[event.resultIndex][0].transcript.toLowerCase().trim();
                 let reply = '';
 
-                if (transcript.includes('open youtube')) {
+                if (transcript.includes('open Youtube')) {
                     reply = 'Opening YouTube...';
-                    tryToOpenApp('youtube://');
+                    tryToOpenApp('Youtube://');
                 } else if (transcript.includes('open telegram')) {
                     reply = 'Opening Telegram...';
-                    tryToOpenApp('tg://');
+                    tryToOpenApp('Telegram://');
                 } else if (transcript.includes('open whatsapp')) {
                     reply = 'Opening WhatsApp...';
-                    tryToOpenApp('whatsapp://');
+                    tryToOpenApp('Whatsapp://');
                 } else if (transcript.includes('open facebook')) {
                     reply = 'Opening Facebook...';
-                    tryToOpenApp('fb://');
+                    tryToOpenApp('Facebook://');
                 } else if (transcript.includes('open instagram')) {
                     reply = 'Opening Instagram...';
-                    tryToOpenApp('instagram://');
+                    tryToOpenApp('Instagram://');
                 } else if (transcript.includes('open play store')) {
                     reply = 'Opening Play Store...';
-                    tryToOpenApp('market://');
+                    tryToOpenApp('Play Store://');
                 }
                 // --- जिन ऐप्स को नहीं खोला जा सकता ---
                 else if (transcript.includes('open camera') || transcript.includes('open gallery') || transcript.includes('open settings') || transcript.includes('open calculator') || transcript.includes('open free fire')) {
